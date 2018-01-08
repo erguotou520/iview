@@ -147,7 +147,7 @@
                 }
             },
             handleSelect () {
-                if (this.data.disabled) return;
+                if (this.data.disabled || !this.data.selectable) return;
                 this.dispatch('Tree', 'on-selected', this.data.nodeKey);
             },
             handleCheck () {
