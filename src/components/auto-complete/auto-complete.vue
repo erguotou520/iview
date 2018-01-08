@@ -6,6 +6,7 @@
         :disabled="disabled"
         :clearable="clearable"
         :placeholder="placeholder"
+        :placement="placement"
         :size="size"
         filterable
         remote
@@ -67,6 +68,12 @@
             },
             placeholder: {
                 type: String
+            },
+            placement: {
+                validator (value) {
+                    return oneOf(value, ['top', 'bottom']);
+                },
+                default: 'bottom'
             },
             size: {
                 validator (value) {
