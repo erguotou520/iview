@@ -37,6 +37,11 @@
                 type: Boolean,
                 default: false
             },
+            // 是否允许取消选择，只在单选时有效
+            enableCancelSelect: {
+                type: Boolean,
+                default: true
+            },
             emptyText: {
                 type: String
             },
@@ -148,6 +153,10 @@
             handleSelect (nodeKey) {
                 const node = this.flatState[nodeKey].node;
                 if (!this.multiple){ // reset previously selected node
+                    // 在不允许取消选择且未选中时直接返回
+                    if (!this.enableCancelSelect && node.selected) {
+                        return
+                    }
                     const currentSelectedKey = this.flatState.findIndex(obj => obj.node.selected);
                     if (currentSelectedKey >= 0 && currentSelectedKey !== nodeKey) this.$set(this.flatState[currentSelectedKey].node, 'selected', false);
                 }
