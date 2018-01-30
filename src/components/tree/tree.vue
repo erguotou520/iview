@@ -182,6 +182,9 @@
         mounted () {
             this.$on('on-check', this.handleCheck);
             this.$on('on-selected', this.handleSelect);
+            this.$on('on-dbclick', nodeKey => {
+              this.$emit('on-dbclick-node', this.getSelectedNodes());
+            });
             this.$on('toggle-expand', node => this.$emit('on-toggle-expand', node));
         }
     };

@@ -14,7 +14,7 @@
                         @click.native.prevent="handleCheck"></Checkbox>
                 <Render v-if="data.render" :render="data.render" :data="data" :node="node"></Render>
                 <Render v-else-if="isParentRender" :render="parentRender" :data="data" :node="node"></Render>
-                <span v-else :class="titleClasses" @click="handleSelect">{{ data.title }}</span>
+                <span v-else :class="titleClasses" @click="handleSelect('on-selected')" @dblclick="handleSelect('on-dbclick')">{{ data.title }}</span>
                 <Tree-node
                         v-if="data.expand"
                         v-for="(item, i) in data.children"
@@ -146,9 +146,9 @@
                     this.dispatch('Tree', 'toggle-expand', this.data);
                 }
             },
-            handleSelect () {
+            handleSelect (event) {
                 if (this.data.disabled || this.data.unselectable) return;
-                this.dispatch('Tree', 'on-selected', this.data.nodeKey);
+                this.dispatch('Tree', event, this.data.nodeKey);
             },
             handleCheck () {
                 if (this.data.disabled) return;
