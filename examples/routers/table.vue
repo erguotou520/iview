@@ -1,14 +1,21 @@
 <template>
-    <Table border :columns="columns6" :data="data5"></Table>
+    <div>
+        <Table border ref="selection" :columns="columns4" :data="data1"></Table>
+        <Button @click="handleSetData">Set Data</Button>
+        <Button @click="handleClearData">Clear Data</Button>
+        <Button @click="handleSelectAll(true)">Set all selected</Button>
+        <Button @click="handleSelectAll(false)">Cancel all selected</Button>
+    </div>
 </template>
 <script>
     export default {
         data () {
             return {
-                columns6: [
+                columns4: [
                     {
-                        title: 'Date',
-                        key: 'date'
+                        type: 'selection',
+                        width: 60,
+                        align: 'center'
                     },
                     {
                         title: 'Name',
@@ -16,49 +23,24 @@
                     },
                     {
                         title: 'Age',
-                        key: 'age',
-                        filters: [
-                            {
-                                label: 'Greater than 25',
-                                value: 1
-                            },
-                            {
-                                label: 'Less than 25',
-                                value: 2
-                            }
-                        ],
-                        filterMultiple: false,
-                        filterMethod (value, row) {
-                            if (value === 1) {
-                                return row.age > 25;
-                            } else if (value === 2) {
-                                return row.age < 25;
-                            }
-                        }
+                        key: 'age'
                     },
                     {
                         title: 'Address',
-                        key: 'address',
-                        filters: [
-                            {
-                                label: 'New York',
-                                value: 'New York'
-                            },
-                            {
-                                label: 'London',
-                                value: 'London'
-                            },
-                            {
-                                label: 'Sydney',
-                                value: 'Sydney'
-                            }
-                        ],
-                        filterMethod (value, row) {
-                            return row.address.indexOf(value) > -1;
-                        }
+                        key: 'address'
                     }
                 ],
-                data5: [
+                data1: [
+
+                ]
+            }
+        },
+        methods: {
+            handleSelectAll (status) {
+                this.$refs.selection.selectAll(status);
+            },
+            handleSetData () {
+                this.data1 = [
                     {
                         name: 'John Brown',
                         age: 18,
@@ -83,7 +65,10 @@
                         address: 'Ottawa No. 2 Lake Park',
                         date: '2016-10-04'
                     }
-                ],
+                ];
+            },
+            handleClearData () {
+                this.data1 = [];
             }
         }
     }
