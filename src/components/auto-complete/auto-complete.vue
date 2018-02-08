@@ -8,7 +8,6 @@
         :placeholder="placeholder"
         :placement="placement"
         :size="size"
-        :placement="placement"
         filterable
         remote
         auto-complete
